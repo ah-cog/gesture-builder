@@ -49,15 +49,16 @@ int classifyGestureFromTransitions(ArrayList<ArrayList<Integer>> liveSample) {
 
     // Calculate the gesture's deviation from the gesture signature
     int gestureDeviation = getGestureDeviation(gestureSignatureSample, liveSample);
+    println ("gestureDeviation: " + gestureDeviation);
     //int gestureInstability = 0;
-    int gestureInstability = getGestureInstability(gestureSignatureSample, liveSample);
+//    int gestureInstability = getGestureInstability(gestureSignatureSample, liveSample);
     //      println("gestureDeviation = " + gestureDeviation + ", gestureInstability = " + gestureInstability);
     //      println();
 
     // Check if the sample's deviation
-    if (minimumDeviationIndex == -1 || (gestureDeviation + gestureInstability) < minimumDeviation) {
+    if (minimumDeviationIndex == -1 || (gestureDeviation /*+ gestureInstability*/) < minimumDeviation) {
       minimumDeviationIndex = gestureSignatureIndex;
-      minimumDeviation = gestureDeviation + gestureInstability;
+      minimumDeviation = gestureDeviation /* + gestureInstability */;
     }
   }
 
@@ -115,6 +116,7 @@ int getGestureAxisDeviation(ArrayList<Integer> gestureSample, ArrayList<Integer>
   for (int i = 0; i < gestureSample.size(); i++) {
     if (i < liveSample.size() && i < gestureSample.size()) {
       int difference = abs(gestureSample.get(i) - liveSample.get(i));
+//      int difference = (gestureSample.get(i) - liveSample.get(i)) * (gestureSample.get(i) - liveSample.get(i));
       delta = delta + difference;
     }
   }
@@ -140,7 +142,6 @@ int getGestureAxisInstability(ArrayList<Integer> gestureSample, ArrayList<Intege
   //  }
 
   for (int i = 0; i < gestureSample.size() - 1; i++) {
-    //  for (int i = 0; i < gestureSample.size() - 1; i++) {
     if (i < liveSample.size() && i < gestureSample.size() && gestureSample.size() <= liveSample.size()) {
       int signatureDifference = abs(gestureSample.get(i + 1) - gestureSample.get(i));
       int liveDifference = abs(liveSample.get(i + 1) - liveSample.get(i));

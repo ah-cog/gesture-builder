@@ -1,10 +1,10 @@
 void drawGestureTitle() {
-  if (showGesturePrompt) {
+//  if (showGesturePrompt) {
     fill(0); 
-    textFont(gestureFont); 
+    textFont(gestureFont);
     textAlign(CENTER);
     text("" + gestureName[classifiedGestureIndex] + "", (width / 2), (height / 4) - 50);
-  }
+//  }
 }
 
 void drawExampleGestureTitle() {

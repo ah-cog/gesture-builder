@@ -238,7 +238,6 @@ void serialEvent (Serial serialPort) {
   // Read serial data
   if (serialPort.available() > 0) { // Check if data is available on the serial port
     serialInputString = serialPort.readString(); // Read the data (a string) and buffer it
-    // print(serialInputString); // Print the buffered data received over the serial port
 
     if (serialInputString != null && serialInputString.length() > 0) {
 
@@ -246,30 +245,38 @@ void serialEvent (Serial serialPort) {
       if (serialInputString.charAt(0) == '!') {
 
         serialInputString = serialInputString.substring (1);
-
+    
         String[] serialInputArray = split(serialInputString, '\t');
-
+    
         // Check if array is correct size
         if (serialInputArray.length >= 3) {
           dataTimestamp = millis();
-
+    
           // Parse the data received over the serial port
           roll           = float(serialInputArray[0]);
           pitch          = float(serialInputArray[1]);
           yaw            = float(serialInputArray[2]);
-          gyroX          = int(serialInputArray[3]);
-          gyroY          = int(serialInputArray[4]);
-          gyroZ          = int(serialInputArray[5]);
-          accelerometerX = int(serialInputArray[6]);
-          accelerometerY = int(serialInputArray[7]);
-          accelerometerZ = int(serialInputArray[8]);
-          magnetometerX  = int(serialInputArray[9]);
-          magnetometerY  = int(serialInputArray[10]);
-          magnetometerZ  = int(serialInputArray[11]);
-          pressure       = float(serialInputArray[12]);
-          altitude       = float(serialInputArray[13]);
-          temperature    = float(serialInputArray[14]);
-
+          
+          accelerometerX          = int(serialInputArray[3]);
+          accelerometerY          = int(serialInputArray[4]);
+          accelerometerZ          = int(serialInputArray[5]);
+          gyroX = int(serialInputArray[6]);
+          gyroY = int(serialInputArray[7]);
+          gyroZ = int(serialInputArray[8]);
+          
+    //      gyroX          = int(serialInputArray[3]);
+    //      gyroY          = int(serialInputArray[4]);
+    //      gyroZ          = int(serialInputArray[5]);
+    //      accelerometerX = int(serialInputArray[6]);
+    //      accelerometerY = int(serialInputArray[7]);
+    //      accelerometerZ = int(serialInputArray[8]);
+    //          magnetometerX  = int(serialInputArray[9]);
+    //          magnetometerY  = int(serialInputArray[10]);
+    //          magnetometerZ  = int(serialInputArray[11]);
+    //          pressure       = float(serialInputArray[12]);
+    //          altitude       = float(serialInputArray[13]);
+    //          temperature    = float(serialInputArray[14]);
+    
           // Update minimum and maximum values
           if (roll > maxRoll) maxRoll = roll;
           if (roll < minRoll) minRoll = roll;
@@ -277,18 +284,21 @@ void serialEvent (Serial serialPort) {
           if (pitch < minPitch) minPitch = pitch;
           if (yaw > maxYaw) maxYaw = yaw;
           if (yaw < minYaw) minYaw = yaw;
-
+    
           // Push live gesture sample onto queue  
           liveGestureSample.get(0).add(accelerometerX);
           liveGestureSample.get(1).add(accelerometerY);
           liveGestureSample.get(2).add(accelerometerZ);
+    //          liveGestureSample.get(0).add(gyroX);
+    //          liveGestureSample.get(1).add(gyroY);
+    //          liveGestureSample.get(2).add(gyroZ);
           
           if (dimensionCount > 3) {
             liveGestureSample.get(3).add(gyroX);
             liveGestureSample.get(4).add(gyroY);
             liveGestureSample.get(5).add(gyroZ);
           }
-
+    
           // Remove oldest element from live gesture queue if greater than threshold
           if (liveGestureSample.get(0).size() > liveGestureSize) { // TODO: In classifier function, compare only the "latest" values...
             liveGestureSample.get(0).remove(0);
@@ -301,12 +311,20 @@ void serialEvent (Serial serialPort) {
               liveGestureSample.get(5).remove(0);
             }
           }
-
+    
           // Classify live gesture sample
           if (liveGestureSample.get(0).size() >= liveGestureSize) {
-            classifiedGestureIndex = classifyGestureFromTransitions(liveGestureSample);
+//            classifiedGestureIndex = classifyGestureFromTransitions(liveGestureSample);
+            int classificationCandidate = classifyGestureFromTransitions(liveGestureSample);
+            if (classificationCandidate >= 0) {
+              classifiedGestureIndex = classificationCandidate;
+            } else {
+              println ("classificationCandidate: " + classificationCandidate);
+              println ("classifiedGestureIndex: " + classifiedGestureIndex);
+            }
           }
         }
+        
       }
     }
   }

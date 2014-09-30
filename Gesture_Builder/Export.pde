@@ -53,8 +53,10 @@ void storeGestureData() {
  * Writes the current gesture model to a .h header file for use with Arduino sketches.
  */
 void saveGestureModelFile() {
+  
+  println ("hey 1");
 
-  PrintWriter gestureFile = createWriter("Gestures.h");
+  PrintWriter gestureFile = createWriter ("Gestures.h");
 
   // GESTURE_COUNT 9
   // AXIS_COUNT 3
@@ -75,6 +77,8 @@ void saveGestureModelFile() {
   gestureFile.println("int previousClassifiedGestureIndex = -1;");
   gestureFile.println("unsigned long lastGestureClassificationTime = 0L; // Time of last gesture classification");
   gestureFile.println();
+  
+  println ("hey 2");
 
   gestureFile.println("char* gestureName[GESTURE_COUNT] = {");
   for (int i = 0; i < getGestureCount(); i++) {
@@ -86,6 +90,8 @@ void saveGestureModelFile() {
   }
   gestureFile.println("};");
   gestureFile.println();
+  
+  println ("hey 3");
 
 //  gestureFile.println("int gestureSignatureOffset[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };");
 //  gestureFile.println();
@@ -102,6 +108,8 @@ void saveGestureModelFile() {
   }
 //  gestureFile.println("};");
   gestureFile.println();
+  
+  println ("hey 4");
 
   gestureFile.println("int gestureSustainDuration[GESTURE_COUNT] = {");
   gestureFile.println("\t0, // \"at rest\"");
@@ -115,6 +123,8 @@ void saveGestureModelFile() {
   gestureFile.println("\t100 // \"tilt backward\"");
   gestureFile.println("};");
   gestureFile.println();
+  
+  println ("hey 5");
 
   gestureFile.println("int gestureTransitions[GESTURE_COUNT][GESTURE_COUNT] = {");
   for (int i = 0; i < gestureTransitions.size(); i++) {
@@ -142,6 +152,8 @@ void saveGestureModelFile() {
     }
   }
   gestureFile.println("};");
+  
+  println ("hey 6");
 
   gestureFile.println("int gestureCandidateSize = 0; // Current size of the live gesture data");
 
@@ -165,6 +177,8 @@ void saveGestureModelFile() {
     }
   }
   gestureFile.println("};");
+  
+  println ("hey 7");
 
   gestureFile.println("\n");
 
@@ -181,9 +195,14 @@ void saveGestureModelFile() {
     //println("Size: " + gestureSignatureSample.get(0).size());
 
     gestureFile.println("\t{");
+    
+    println ("\tstart " + gestureSignatureIndex);
 
-    for (int axis = 0; axis < gestureSignatureSample.size(); axis++) {
+    //for (int axis = 0; axis < gestureSignatureSample.size(); axis++) {
+    for (int axis = 0; axis < 3; axis++) {
       //print("gestureSignature[" + gestureSignatureIndex + "][" + axis + "] = { ");
+      
+      println ("\t\taxis " + axis);
 
       gestureFile.print("\t\t{ ");
 
@@ -205,6 +224,8 @@ void saveGestureModelFile() {
         }
       }
     }
+    
+    println ("\tstop " + gestureSignatureIndex);
 
     // Write "}," or "}" to the end of the line, depending on whether it's the last gesture or not
     if (gestureSignatureIndex < getGestureCount() - 1) {
@@ -215,6 +236,8 @@ void saveGestureModelFile() {
     }
   }
   gestureFile.println("};");
+  
+  println ("hey 8");
 
   gestureFile.flush(); // Write remaining data to file
   gestureFile.close(); // Finish writing to the file and close it
