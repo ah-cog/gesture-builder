@@ -30,11 +30,11 @@
 
 #include <L3G.h>
 #include <LSM303.h>
-#include <LPS331.h>
+#include <LPS.h>
 
 L3G gyro;
 LSM303 compass;
-LPS331 ps;
+LPS ps; // Pressure sensor (measures the atmospheric pressure)
 
 void I2C_Init() {
   Wire.begin();
@@ -59,15 +59,17 @@ void Read_Gyro() {
 
 void Accel_Init() {
   compass.init();
-  if (compass.getDeviceType() == LSM303DLHC_DEVICE)
+  compass.enableDefault();
+  switch (compass.getDeviceType())
   {
-    compass.writeAccReg(LSM303_CTRL_REG1_A, 0x47); // normal power mode, all axes enabled, 50 Hz
-    compass.writeAccReg(LSM303_CTRL_REG4_A, 0x28); // 8 g full scale: FS = 10 on DLHC; high resolution output mode
-  }
-  else 
-  {
-    compass.writeAccReg(LSM303_CTRL_REG1_A, 0x27); // normal power mode, all axes enabled, 50 Hz
-    compass.writeAccReg(LSM303_CTRL_REG4_A, 0x30); // 8 g full scale: FS = 11 on DLH, DLM
+    case LSM303::device_D:
+      compass.writeReg(LSM303::CTRL2, 0x18); // 8 g full scale: AFS = 011
+      break;
+    case LSM303::device_DLHC:
+      compass.writeReg(LSM303::CTRL_REG4_A, 0x28); // 8 g full scale: FS = 10; high resolution output mode
+      break;
+    default: // DLM, DLH
+      compass.writeReg(LSM303::CTRL_REG4_A, 0x30); // 8 g full scale: FS = 11
   }
 }
 
@@ -85,7 +87,7 @@ void Read_Accel() {
 
 // Initialize compass sensor
 void Compass_Init() {
-  compass.writeMagReg(LSM303_MR_REG_M, 0x00); // continuous conversion mode
+//  compass.writeMagReg(LSM303_MR_REG_M, 0x00); // continuous conversion mode
   // 15 Hz default
 }
 

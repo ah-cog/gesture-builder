@@ -1,17 +1,17 @@
 import processing.serial.*;
-import controlP5.*;
+//import controlP5.*;
 
 // ControlP5:
-ControlP5 controlP5;
-boolean showGUI = false;
-Slider[] sliders;
-Range[] ranges;
-Toggle[] toggles;
+//ControlP5 controlP5;
+//boolean showGUI = false;
+//Slider[] sliders;
+//Range[] ranges;
+//Toggle[] toggles;
 
 // Gesture Builder:
 
 // Serial port
-int serialPortIndex = 7; // NOTE: This must be set correctly manually, here in the code!
+int serialPortIndex = 5; // NOTE: This must be set correctly manually, here in the code!
 Serial serialPort;
 String serialInputString; // Used to buffer a received string
 
@@ -120,7 +120,7 @@ boolean showOrientationVisualization = true;
 boolean showValidationStatistics = false;
 
 int classifiedGestureIndex = -1;
-color backgroundColor = #F0F1F0;
+color backgroundColor = #FFFFFF;
 
 ArrayList<ArrayList<ArrayList<ArrayList<Integer>>>> cachedGestureSamples;
 ArrayList<Boolean> hasCachedGestureSamples;
@@ -130,7 +130,7 @@ void setup () {
   frame.setTitle("Gesture Builder");
   
   // Setup menu
-  setupMenu();
+//  setupMenu();
 
   // Set up font
   gestureFont = createFont("DidactGothic.ttf", 64, true);
@@ -193,7 +193,7 @@ void draw() {
   if (gestureIndex == classifiedGestureIndex) {
     backgroundColor = #cc0000;
   } else {
-    backgroundColor = #F0F1F0;
+    backgroundColor = #FFFFFF;
   }
 
   // Set background
@@ -456,10 +456,10 @@ void keyReleased() {
     }
   }
   
-  if (key == 'm' || key == 'M') {
-    showGUI = controlP5.group("menu").isOpen();
-    showGUI = !showGUI;
-  }
-  if (showGUI) { controlP5.group("menu").open(); }
-  else { controlP5.group("menu").close(); }
+//  if (key == 'm' || key == 'M') {
+//    showGUI = controlP5.group("menu").isOpen();
+//    showGUI = !showGUI;
+//  }
+//  if (showGUI) { controlP5.group("menu").open(); }
+//  else { controlP5.group("menu").close(); }
 }

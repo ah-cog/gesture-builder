@@ -97,19 +97,19 @@ void drawLiveGesturePlot() {
   if (liveGestureSample.size() > 0) {
     // TODO: Check here with an "if" whether the index should be drawn (if it's in the boundary range)
     stroke(255, 0, 0); 
-    drawPlot(liveGestureSample.get(0), gestureSignatureOffset[gestureIndex], gestureSignatureSize[gestureIndex], scaledBoundLeft, height / 2, scaledBoundRight - scaledBoundLeft, height, 0, 1000);
+    drawPlot(liveGestureSample.get(0), gestureSignatureOffset[gestureIndex], gestureSignatureSize[gestureIndex], scaledBoundLeft, height / 2, scaledBoundRight - scaledBoundLeft, height, 0, 10000);
     stroke(0, 255, 0); 
-    drawPlot(liveGestureSample.get(1), gestureSignatureOffset[gestureIndex], gestureSignatureSize[gestureIndex], scaledBoundLeft, height / 2, scaledBoundRight - scaledBoundLeft, height, 0, 1000);
+    drawPlot(liveGestureSample.get(1), gestureSignatureOffset[gestureIndex], gestureSignatureSize[gestureIndex], scaledBoundLeft, height / 2, scaledBoundRight - scaledBoundLeft, height, 0, 10000);
     stroke(0, 0, 255); 
-    drawPlot(liveGestureSample.get(2), gestureSignatureOffset[gestureIndex], gestureSignatureSize[gestureIndex], scaledBoundLeft, height / 2, scaledBoundRight - scaledBoundLeft, height, 0, 1000);
+    drawPlot(liveGestureSample.get(2), gestureSignatureOffset[gestureIndex], gestureSignatureSize[gestureIndex], scaledBoundLeft, height / 2, scaledBoundRight - scaledBoundLeft, height, 0, 10000);
     
     if (dimensionCount > 3) {
       stroke(255, 0, 0); 
-      drawPlot(liveGestureSample.get(3), gestureSignatureOffset[gestureIndex], gestureSignatureSize[gestureIndex], scaledBoundLeft, height / 2, scaledBoundRight - scaledBoundLeft, height, 0, 1000);
+      drawPlot(liveGestureSample.get(3), gestureSignatureOffset[gestureIndex], gestureSignatureSize[gestureIndex], scaledBoundLeft, height / 2, scaledBoundRight - scaledBoundLeft, height, 0, 10000);
       stroke(0, 255, 0); 
-      drawPlot(liveGestureSample.get(4), gestureSignatureOffset[gestureIndex], gestureSignatureSize[gestureIndex], scaledBoundLeft, height / 2, scaledBoundRight - scaledBoundLeft, height, 0, 1000);
+      drawPlot(liveGestureSample.get(4), gestureSignatureOffset[gestureIndex], gestureSignatureSize[gestureIndex], scaledBoundLeft, height / 2, scaledBoundRight - scaledBoundLeft, height, 0, 10000);
       stroke(0, 0, 255); 
-      drawPlot(liveGestureSample.get(5), gestureSignatureOffset[gestureIndex], gestureSignatureSize[gestureIndex], scaledBoundLeft, height / 2, scaledBoundRight - scaledBoundLeft, height, 0, 1000);
+      drawPlot(liveGestureSample.get(5), gestureSignatureOffset[gestureIndex], gestureSignatureSize[gestureIndex], scaledBoundLeft, height / 2, scaledBoundRight - scaledBoundLeft, height, 0, 10000);
     }
   }
 
@@ -185,7 +185,7 @@ void drawGesturePlotBoundaries() {
         //stroke(255,0,0, 20); drawPlot(singleGestureSample.get(0), 0, height / 2, width, height, 0, 1000);
         if (axisVisible[axis]) {
           stroke(axisColor[axis][0], axisColor[axis][1], axisColor[axis][2], axisColor[axis][3]); 
-          drawPlot(singleGestureSample.get(axis), 0, height / 2, width, height, 0, 1000);
+          drawPlot(singleGestureSample.get(axis), 0, height / 2, width, height, 0, 10000);
         }
 
         // Update list sizes
@@ -235,11 +235,11 @@ void drawGesturePlotBoundaries() {
   for (int axis = 0; axis < 3; axis++) {
     if (axisVisible[axis]) {
       stroke(axisColor[axis][0], axisColor[axis][1], axisColor[axis][2], 85); 
-      drawPlot(gestureSampleUpperBounds.get(axis), 0, height / 2, width, height, 0, 1000);
+      drawPlot(gestureSampleUpperBounds.get(axis), 0, height / 2, width, height, 0, 10000);
       stroke(axisColor[axis][0], axisColor[axis][1], axisColor[axis][2], 85); 
-      drawPlot(gestureSampleLowerBounds.get(axis), 0, height / 2, width, height, 0, 1000);
+      drawPlot(gestureSampleLowerBounds.get(axis), 0, height / 2, width, height, 0, 10000);
       stroke(axisColor[axis][0], axisColor[axis][1], axisColor[axis][2], 180); 
-      drawPlot(gestureSampleAverageSum.get(axis), 0, height / 2, width, height, 0, 1000);
+      drawPlot(gestureSampleAverageSum.get(axis), 0, height / 2, width, height, 0, 10000);
       //drawPlotNodes(12, gestureSampleAverageSum.get(axis), 0, height / 2, width, height, 0, 1000);
     }
   }
